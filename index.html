@@ -1,12 +1,729 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LayoffCalc — Coming very Soon</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- ── Primary SEO ── -->
+  <title>Layoff Calculator 2026 — Severance + Runway + COBRA | LayoffCalc</title>
+  <meta name="description" content="Layoff calculator: estimate your severance pay, financial runway, COBRA vs ACA costs, and unemployment benefits in under 60 seconds. Free, no account required." />
+  <meta name="keywords" content="layoff calculator, severance pay calculator, financial runway, COBRA vs ACA, unemployment benefits calculator, 2026" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://layoffcalc.com/" />
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://layoffcalc.com/" />
+  <meta property="og:title"       content="Layoff Calculator 2026 — Severance + Runway + COBRA | LayoffCalc" />
+  <meta property="og:description" content="Estimate your severance, financial runway, COBRA vs ACA costs, and unemployment benefits instantly. Free layoff calculator — no account required." />
+  <meta property="og:image"       content="https://layoffcalc.com/og-image.png" />
+  <meta property="og:site_name"   content="LayoffCalc" />
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Layoff Calculator 2026 | LayoffCalc" />
+  <meta name="twitter:description" content="Severance + runway + COBRA + unemployment — know your numbers in under 60 seconds." />
+  <meta name="twitter:image"       content="https://layoffcalc.com/og-image.png" />
+
+  <!-- ── Google Fonts — preconnect first, then stylesheet ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ── Stylesheets ── -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/modules.css" />
+
+  <style>
+    .reset-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      height: 44px;
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 8px;
+      color: #475569;
+      font-size: 14px;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease,
+                  color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-tap-highlight-color: rgba(59,130,246,.15);
+    }
+    .reset-btn:hover {
+      background: #EFF6FF;
+      border-color: #93C5FD;
+      color: #1E3A8A;
+      box-shadow: 0 1px 4px rgba(59,130,246,.18);
+    }
+    .reset-btn:active {
+      background: #DBEAFE;
+      border-color: #60A5FA;
+      color: #1E3A8A;
+      transform: scale(0.985);
+    }
+    .btn-row {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-row > .btn {
+      flex: 1;
+    }
+    @media print {
+      /* Show only the four calculator module cards + legal disclaimer */
+      .site-nav,
+      .hero,
+      .reset-section,
+      .copy-section,
+      .next-steps-section,
+      .site-footer { display: none !important; }
+
+      body { background: white; font-size: 11px; color: #0F172A; margin: 0; }
+
+      .modules-wrapper::before {
+        content: "LayoffCalc.com \2014 Your Layoff Financial Summary";
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        color: #1E3A8A;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #1E3A8A;
+      }
+
+      .modules-wrapper { padding: 0 8px; max-width: 100%; }
+
+      .module-section {
+        break-inside: avoid;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: none !important;
+        margin-bottom: 10px;
+        padding: 14px 16px;
+      }
+
+      .module-number { display: none; }
+      .section-desc  { display: none; }
+
+      .sev-grid, .runway-card, .cobra-grid, .ui-card { break-inside: avoid; }
+
+      .legal-section { display: block; }
+      .legal-box {
+        border: 1px solid #E2E8F0;
+        border-radius: 4px;
+        padding: 8px 10px;
+        font-size: 8px;
+        margin-top: 10px;
+        color: #64748B;
+      }
+    }
+  </style>
+
+  <!-- ── JSON-LD: WebApplication ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "LayoffCalc — Layoff Calculator 2026",
+    "url": "https://layoffcalc.com/",
+    "description": "Free layoff financial calculator. Estimates severance pay, financial runway, COBRA vs ACA health insurance costs, and state unemployment benefits. No account required.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "LayoffCalc",
+      "url": "https://layoffcalc.com/"
+    }
+  }
+  </script>
+
+  <!-- ── JSON-LD: FAQPage ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is severance pay calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Severance is typically calculated as one to two weeks of pay per year of service, multiplied by industry and seniority factors. For example, a tech employee at the director level with 5 years of service at $100,000/year might receive 5 × 1.5 × 1.3 × 1.3 = 12.7 weeks of pay, or about $24,500 gross. Actual amounts depend on your employment agreement and employer policy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does COBRA coverage last after a layoff?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "COBRA continuation coverage typically lasts up to 18 months after a qualifying event like a layoff. You must elect COBRA within 60 days of losing coverage and pay 100% of the premium plus a 2% administrative fee. Many people find ACA Marketplace plans cheaper after a layoff."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much unemployment can I collect after being laid off?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unemployment benefits vary by state. Most states pay approximately 40–50% of your prior weekly wage, capped at the state's maximum weekly benefit amount (WBA). For example, California's maximum WBA is $450/week while Washington state's is $1,079/week. Duration ranges from 12 weeks (Florida, North Carolina) to 30 weeks (Massachusetts)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is financial runway and how long should I have?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Financial runway is the number of months you can cover your living expenses using your severance pay, savings, and unemployment benefits. Financial advisors generally recommend 3–6 months as a baseline; 6+ months gives you time to be selective in your job search rather than accepting the first offer out of financial pressure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the WARN Act require my employer to do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The federal WARN Act requires employers with 100+ employees to give 60 days advance notice of mass layoffs affecting 50+ workers at a single site. If your employer failed to provide this notice during a qualifying mass layoff, you may be entitled to back pay and benefits for up to 60 days. Consult an employment attorney to evaluate your specific situation."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
+
 <body>
-<h1>LayoffCalc.com</h1>
-<p>Free layoff financial calculator — launching very soon.</p>
+
+  <!-- ══════════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════════ -->
+  <nav style="background:#1E3A8A; position:sticky; top:0; z-index:100; width:100%; box-sizing:border-box; box-shadow:0 2px 8px rgba(0,0,0,.18);">
+    <div style="max-width:819px; margin:0 auto; padding:0 24px; height:56px; display:flex; align-items:center; justify-content:space-between;">
+      <div style="line-height:1.1;">
+        <div style="font-size:18px; font-weight:700; color:#FFFFFF; font-family:inherit; letter-spacing:-0.01em;">LayoffCalc</div>
+        <div style="font-size:11px; color:#93C5FD; font-weight:400;">Free layoff financial calculator</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <a href="#module1" style="color:#CBD5E1; font-size:13px; font-weight:500; text-decoration:none; white-space:nowrap;">Severance</a>
+        <a href="#module3" style="color:#CBD5E1; font-size:13px; font-weight:500; text-decoration:none; white-space:nowrap;">COBRA</a>
+        <a href="#module4" style="color:#CBD5E1; font-size:13px; font-weight:500; text-decoration:none; white-space:nowrap;">By State</a>
+        <a href="#next-steps" style="color:#CBD5E1; font-size:13px; font-weight:500; text-decoration:none; white-space:nowrap;">Checklist</a>
+        <a href="#module1" style="background:transparent; border:1.5px solid rgba(203,213,225,.6); color:#FFFFFF; font-size:13px; font-weight:600; padding:7px 16px; border-radius:6px; text-decoration:none; white-space:nowrap;">Calculate now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       HERO — H1 above the fold
+  ══════════════════════════════════════════ -->
+  <header class="hero" role="banner">
+    <div class="hero-inner">
+      <h1>Layoff Calculator 2026:<br>Severance, Runway &amp; Benefits</h1>
+      <p class="hero-sub">
+        Enter your details below. Your severance estimate, financial runway,
+        COBRA costs, and unemployment benefits update instantly — no account, no email, no wait.
+      </p>
+      <span class="hero-badge">&#x2713; Free &nbsp;&nbsp; &#x2713; No login &nbsp;&nbsp; &#x2713; Results in 60 seconds</span>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       YOUR SITUATION PROGRESS BAR
+  ══════════════════════════════════════════ -->
+  <div style="max-width:819px; margin:0 auto; padding:20px 24px 0;">
+    <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; color:#64748B; text-transform:uppercase; margin-bottom:10px;">Your Situation</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:4px;">
+      <div style="height:4px; border-radius:2px; background:#10B981;"></div>
+      <div style="height:4px; border-radius:2px; background:#3B82F6;"></div>
+      <div style="height:4px; border-radius:2px; background:#3B82F6; opacity:0.4;"></div>
+      <div style="height:4px; border-radius:2px; background:#E2E8F0;"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════════ -->
+  <main id="main-content">
+    <div class="modules-wrapper">
+
+      <!-- ─────────────────────────────────────
+           MODULE 1 — SEVERANCE ESTIMATOR
+      ───────────────────────────────────── -->
+      <section class="module-section" id="module1" aria-labelledby="m1-heading">
+        <span class="module-number">Module 1 of 4</span>
+        <h2 class="section-title" id="m1-heading">Severance Pay Estimator</h2>
+        <p class="section-desc">Your answers populate all four modules automatically.</p>
+
+        <!-- Salary slider -->
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="salary-slider">Annual Salary</label>
+            <input type="number" id="salary-text" class="slider-text-input"
+                   min="25000" max="300000" step="1000"
+                   value="75000" aria-label="Salary in dollars" />
+          </div>
+          <div class="slider-track">
+            <input type="range" id="salary-slider"
+                   min="25000" max="300000" step="1000" value="75000"
+                   aria-label="Annual salary slider" />
+          </div>
+          <div class="slider-labels">
+            <span>$25K</span><span>$300K</span>
+          </div>
+        </div>
+
+        <!-- Years of service stepper -->
+        <div class="stepper-group input-group">
+          <label>Years of Service</label>
+          <div style="display:flex; align-items:center; gap:0;">
+            <div class="stepper-wrap">
+              <button class="stepper-btn" id="years-dec" type="button" aria-label="Decrease years">&#8722;</button>
+              <input type="number" id="years-input" class="stepper-val"
+                     min="0" max="40" value="3" aria-label="Years of service" />
+              <button class="stepper-btn" id="years-inc" type="button" aria-label="Increase years">&#43;</button>
+            </div>
+            <span class="stepper-unit">years</span>
+          </div>
+        </div>
+
+        <!-- Industry + Seniority -->
+        <div class="form-grid input-group">
+          <div>
+            <label for="industry-select">Industry</label>
+            <select id="industry-select" aria-label="Select your industry">
+              <option value="tech">Tech</option>
+              <option value="finance">Finance</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="manufacturing">Manufacturing</option>
+              <option value="government">Government</option>
+              <option value="retail">Retail</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="seniority-select">Seniority Level</label>
+            <select id="seniority-select" aria-label="Select your seniority level">
+              <option value="ic">Individual Contributor</option>
+              <option value="manager">Manager</option>
+              <option value="director">Director</option>
+              <option value="vp">VP or Above</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- State dropdown (populated by JS) -->
+        <div class="input-group">
+          <label for="state-select">State</label>
+          <div class="state-select-wrap">
+            <select id="state-select" aria-label="Select your state">
+              <!-- Options injected by module1.js -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Checkboxes -->
+        <div class="checkbox-group">
+          <label class="checkbox-row">
+            <input type="checkbox" id="mass-layoff-check" />
+            <span class="checkbox-label">
+              Mass layoff
+              <span class="checkbox-hint"> — 50+ employees laid off at once</span>
+            </span>
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" id="age40-check" />
+            <span class="checkbox-label">
+              I am 40 or older
+              <span class="checkbox-hint"> — may trigger additional legal protections</span>
+            </span>
+          </label>
+        </div>
+
+        <!-- ── MODULE 1 RESULTS ── -->
+        <div id="m1-results" class="result-area" style="display:none;">
+          <div class="divider"></div>
+
+          <!-- Severance cards -->
+          <div class="sev-grid">
+            <div class="sev-card">
+              <div class="sev-card-label">Low Estimate</div>
+              <div class="sev-gross val-transition" id="sev-low-gross">—</div>
+              <div class="sev-net  val-transition" id="sev-low-net">—</div>
+              <div class="sev-math" id="sev-low-math"></div>
+            </div>
+            <div class="sev-card sev-typical">
+              <div class="sev-badge">Most Likely</div>
+              <div class="sev-card-label">Typical</div>
+              <div class="sev-gross val-transition" id="sev-typical-gross">—</div>
+              <div class="sev-net  val-transition" id="sev-typical-net">—</div>
+              <div class="sev-math" id="sev-typical-math"></div>
+            </div>
+            <div class="sev-card">
+              <div class="sev-card-label">High Estimate</div>
+              <div class="sev-gross val-transition" id="sev-high-gross">—</div>
+              <div class="sev-net  val-transition" id="sev-high-net">—</div>
+              <div class="sev-math" id="sev-high-math"></div>
+            </div>
+          </div>
+
+          <p class="sev-tax-note" id="sev-tax-note"></p>
+
+          <!-- WARN Act flag -->
+          <div class="flag flag-warn" id="warn-flag" role="alert" aria-live="polite">
+            <span class="flag-icon">&#9888;</span>
+            <div>
+              <strong>WARN Act may apply.</strong>
+              Mass layoffs of 50+ employees at a single location trigger the federal Worker Adjustment
+              and Retraining Notification (WARN) Act, which requires 60 days advance notice.
+              If your employer skipped this, you may be entitled to back pay for up to 60 days.
+              Consult an employment attorney.
+            </div>
+          </div>
+
+          <!-- OWBPA flag -->
+          <div class="flag flag-info" id="owbpa-flag" role="note" aria-live="polite">
+            <span class="flag-icon">&#8505;</span>
+            <div>
+              <strong>OWBPA protections apply.</strong>
+              The Older Workers Benefit Protection Act (OWBPA) gives workers 40+ at least
+              21 days to consider a severance agreement (45 days in a group layoff) and 7 days
+              to revoke after signing. Do not rush your signature.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ─────────────────────────────────────
+           MODULE 2 — FINANCIAL RUNWAY
+      ───────────────────────────────────── -->
+      <section class="module-section" id="module2" aria-labelledby="m2-heading">
+        <span class="module-number">Module 2 of 4</span>
+        <h2 class="section-title" id="m2-heading">Financial Runway Calculator</h2>
+        <p class="section-desc">How many months until you need income? State auto-populated from above.</p>
+
+        <!-- Savings -->
+        <div class="input-group">
+          <label for="savings-input">Total Savings &amp; Emergency Fund</label>
+          <input type="number" id="savings-input"
+                 min="0" max="10000000" step="500"
+                 value="15000" placeholder="e.g. 15000"
+                 aria-label="Total savings in dollars" />
+        </div>
+
+        <!-- Monthly expenses slider -->
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="expenses-slider">Monthly Expenses</label>
+            <input type="number" id="expenses-text" class="slider-text-input"
+                   min="500" max="15000" step="100"
+                   value="3000" aria-label="Monthly expenses in dollars" />
+          </div>
+          <div class="slider-track">
+            <input type="range" id="expenses-slider"
+                   min="500" max="15000" step="100" value="3000"
+                   aria-label="Monthly expenses slider" />
+          </div>
+          <div class="slider-labels">
+            <span>$500</span><span>$15K</span>
+          </div>
+        </div>
+
+        <!-- ── MODULE 2 RESULTS ── -->
+        <div id="m2-results" class="result-area" style="display:none;">
+          <div class="runway-card" id="runway-card">
+            <div class="runway-headline" id="runway-headline">Calculating…</div>
+            <p class="runway-sub" id="runway-sub"></p>
+
+            <div class="runway-phases">
+              <div class="runway-phase">
+                <div class="runway-phase-label">Phase 1 · Severance</div>
+                <div class="runway-phase-val" id="runway-p1">—</div>
+              </div>
+              <div class="runway-phase">
+                <div class="runway-phase-label">Phase 2 · Savings + UI</div>
+                <div class="runway-phase-val" id="runway-p2">—</div>
+              </div>
+              <div class="runway-phase">
+                <div class="runway-phase-label">Phase 3 · Savings only</div>
+                <div class="runway-phase-val" id="runway-p3">—</div>
+              </div>
+            </div>
+
+            <p class="runway-ui-note" id="runway-ui-note"></p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ─────────────────────────────────────
+           MODULE 3 — COBRA vs ACA
+      ───────────────────────────────────── -->
+      <section class="module-section" id="module3" aria-labelledby="m3-heading">
+        <span class="module-number">Module 3 of 4</span>
+        <h2 class="section-title" id="m3-heading">COBRA vs ACA Health Insurance Cost</h2>
+        <p class="section-desc">See your monthly costs side by side. Income estimate auto-populated from Module 1.</p>
+
+        <div class="form-grid input-group">
+          <div>
+            <label for="coverage-select">Coverage Type</label>
+            <select id="coverage-select" aria-label="Select coverage type">
+              <option value="self">Self only</option>
+              <option value="spouse">Self + spouse</option>
+              <option value="family">Family</option>
+            </select>
+          </div>
+          <div>
+            <label for="deduction-input">Monthly Paycheck Deduction <span style="font-weight:400;color:var(--text-sec)">(optional)</span></label>
+            <input type="number" id="deduction-input"
+                   min="0" max="5000" step="10"
+                   placeholder="e.g. 150"
+                   aria-label="Monthly premium deduction from your paycheck" />
+          </div>
+        </div>
+
+        <!-- ── MODULE 3 RESULTS ── -->
+        <div id="m3-results" class="result-area" style="display:none;">
+          <div class="cobra-grid">
+            <div class="cobra-card" id="cobra-card">
+              <div class="cobra-rec-badge" id="cobra-rec-badge" style="display:none;">Best Option</div>
+              <div class="cobra-plan-name">COBRA</div>
+              <div class="cobra-price val-transition" id="cobra-price">—</div>
+              <div class="cobra-price-unit">/month</div>
+              <p class="cobra-desc" id="cobra-desc"></p>
+            </div>
+            <div class="cobra-card" id="aca-card">
+              <div class="cobra-rec-badge" id="aca-rec-badge" style="display:none;">Best Option</div>
+              <div class="cobra-plan-name">ACA Marketplace</div>
+              <div class="cobra-price val-transition" id="aca-price">—</div>
+              <div class="cobra-price-unit">/month estimated</div>
+              <p class="cobra-desc" id="aca-range"></p>
+              <p class="cobra-desc" id="aca-desc"></p>
+            </div>
+          </div>
+          <div class="cobra-savings-note" id="cobra-savings"></div>
+        </div>
+
+      </section>
+
+      <!-- ─────────────────────────────────────
+           MODULE 4 — STATE UNEMPLOYMENT
+      ───────────────────────────────────── -->
+      <section class="module-section" id="module4" aria-labelledby="m4-heading">
+        <span class="module-number">Module 4 of 4</span>
+        <h2 class="section-title" id="m4-heading">State Unemployment Insurance Benefits</h2>
+        <p class="section-desc">Auto-calculated from your state and salary in Module 1.</p>
+
+        <!-- ── MODULE 4 RESULTS ── -->
+        <div id="m4-results" class="result-area" style="display:none;">
+          <div class="ui-card">
+            <div class="ui-state-name" id="ui-state-name">California Unemployment Insurance</div>
+
+            <div class="ui-stats">
+              <div class="ui-stat">
+                <div class="ui-stat-label">Your estimated weekly benefit</div>
+                <div class="ui-stat-val val-transition" id="ui-weekly-benefit">—</div>
+                <div class="ui-stat-sub" id="ui-weekly-sub"></div>
+              </div>
+              <div class="ui-stat">
+                <div class="ui-stat-label">Maximum duration</div>
+                <div class="ui-stat-val val-transition" id="ui-duration">—</div>
+                <div class="ui-stat-sub" id="ui-duration-sub"></div>
+              </div>
+              <div class="ui-stat">
+                <div class="ui-stat-label">Total maximum payout</div>
+                <div class="ui-stat-val val-transition" id="ui-total-payout">—</div>
+                <div class="ui-stat-sub" id="ui-total-sub"></div>
+              </div>
+              <div class="ui-stat">
+                <div class="ui-stat-label">Income replacement rate</div>
+                <div class="ui-stat-val val-transition" id="ui-replacement">—</div>
+                <div class="ui-stat-sub" id="ui-replacement-sub"></div>
+              </div>
+            </div>
+
+            <!-- Replacement rate bar -->
+            <div class="ui-replacement-bar">
+              <div class="ui-rep-label">
+                <span>Income replaced by UI</span>
+                <span id="ui-rep-pct-label">0%</span>
+              </div>
+              <div class="ui-rep-track">
+                <div class="ui-rep-fill" id="ui-rep-fill" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:.875rem;color:var(--text-sec);margin-top:14px;line-height:1.6;"
+             id="ui-apply-note"></p>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────────────────
+           NEXT STEPS — no email gate
+      ───────────────────────────────────── -->
+      <section class="next-steps-section" id="next-steps" aria-labelledby="nextsteps-heading">
+        <h2 class="section-title" id="nextsteps-heading">Your Next Steps</h2>
+        <p class="section-desc">Take these six actions in the next 72 hours.</p>
+
+        <ol class="checklist">
+          <li class="checklist-item">
+            <div class="checklist-num">1</div>
+            <div class="checklist-body">
+              <div class="checklist-title">File for unemployment today</div>
+              <div class="checklist-desc">Most states require you to file within 2–3 weeks of separation. Every day you wait is a day of benefits you can't reclaim. Go to your state's unemployment portal now.</div>
+            </div>
+          </li>
+          <li class="checklist-item">
+            <div class="checklist-num">2</div>
+            <div class="checklist-body">
+              <div class="checklist-title">Review your severance agreement carefully</div>
+              <div class="checklist-desc">You typically have 21 days to sign (45 days if in a group layoff). If you're 40+, you also have 7 days to revoke. Don't rush. Have an employment attorney review it — many offer free consultations.</div>
+            </div>
+          </li>
+          <li class="checklist-item">
+            <div class="checklist-num">3</div>
+            <div class="checklist-body">
+              <div class="checklist-title">Elect COBRA or shop ACA Marketplace within 60 days</div>
+              <div class="checklist-desc">You have 60 days from losing coverage to elect COBRA. Losing job-based coverage is also a Special Enrollment Period for ACA Marketplace plans. Don't let the deadline slip.</div>
+            </div>
+          </li>
+          <li class="checklist-item">
+            <div class="checklist-num">4</div>
+            <div class="checklist-body">
+              <div class="checklist-title">Cut non-essential subscriptions immediately</div>
+              <div class="checklist-desc">Every $50/month you cut is $600/year and roughly adds one more day of runway. Audit streaming, software, memberships, and gym fees this week.</div>
+            </div>
+          </li>
+          <li class="checklist-item">
+            <div class="checklist-num">5</div>
+            <div class="checklist-body">
+              <div class="checklist-title">Update your resume and LinkedIn profile</div>
+              <div class="checklist-desc">Get your resume updated before you start applying. Recruiters check LinkedIn constantly — make sure your profile reflects your current situation and is open to opportunities.</div>
+            </div>
+          </li>
+          <li class="checklist-item">
+            <div class="checklist-num">6</div>
+            <div class="checklist-body">
+              <div class="checklist-title">Talk to a financial advisor about your 401(k)</div>
+              <div class="checklist-desc">Leaving a job triggers decisions about your 401(k) — rollover to an IRA, leave it, or cash out (avoid cashing out). Get professional guidance before making irreversible moves.</div>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+    </div><!-- /.modules-wrapper -->
+
+    <!-- ─────────────────────────────────────
+         RESET BUTTON
+    ───────────────────────────────────── -->
+    <div class="reset-section copy-section">
+      <button class="reset-btn" type="button" onclick="resetCalc()">&#8635; Reset calculator</button>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         COPY RESULTS + PRINT
+    ───────────────────────────────────── -->
+    <div class="copy-section">
+      <div class="btn-row">
+        <button id="copy-btn" class="btn btn-copy" type="button">
+          &#128203; Copy My Results to Clipboard
+        </button>
+        <button id="print-btn" class="btn btn-copy" type="button" onclick="window.print()">
+          &#128424; Print / Save PDF
+        </button>
+      </div>
+      <div class="copy-feedback" id="copy-feedback" aria-live="polite" style="opacity:0;"></div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         LEGAL DISCLAIMER
+    ───────────────────────────────────── -->
+    <div class="legal-section" role="note" aria-label="Legal disclaimer">
+      <div class="legal-box">
+        <p>
+          This calculator provides estimates based on industry averages and publicly available data.
+          Results are for informational and educational purposes only and do not constitute legal,
+          financial, tax, or employment advice. Actual amounts depend on your specific employment
+          agreement, employer policies, and state law. Consult a qualified employment attorney and
+          financial advisor before making decisions. Not affiliated with any employer, the U.S.
+          Department of Labor, the IRS, or any state unemployment agency.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="/disclaimer.html">Disclaimer</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/affiliate-disclosure.html">Affiliate Disclosure</a>
+      </nav>
+      <p class="footer-copyright">
+        &copy; 2026 LayoffCalc &mdash; Free layoff financial calculator.
+        Results are estimates only. Not legal or financial advice.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+       SCRIPTS — order: data → modules → main
+  ══════════════════════════════════════════ -->
+  <script src="js/data.js"></script>
+  <script src="js/module1.js"></script>
+  <script src="js/module2.js"></script>
+  <script src="js/module3.js"></script>
+  <script src="js/module4.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    function resetCalc() {
+      function fillSlider(slider) {
+        var min = parseFloat(slider.min), max = parseFloat(slider.max), val = parseFloat(slider.value);
+        var pct = ((val - min) / (max - min)) * 100;
+        slider.style.background = 'linear-gradient(to right, var(--accent) ' + pct + '%, var(--border) ' + pct + '%)';
+      }
+
+      var ss = document.getElementById('salary-slider');
+      var st = document.getElementById('salary-text');
+      ss.value = 75000; st.value = 75000; fillSlider(ss);
+
+      document.getElementById('years-input').value = 3;
+      document.getElementById('industry-select').value  = 'tech';
+      document.getElementById('seniority-select').value = 'ic';
+      document.getElementById('state-select').value     = 'CA';
+      document.getElementById('mass-layoff-check').checked = false;
+      document.getElementById('age40-check').checked        = false;
+
+      document.getElementById('savings-input').value = '';
+      var es = document.getElementById('expenses-slider');
+      var et = document.getElementById('expenses-text');
+      es.value = 3000; et.value = 3000; fillSlider(es);
+
+      document.getElementById('coverage-select').value = 'self';
+      document.getElementById('deduction-input').value = '';
+
+      ['m1-results','m2-results','m3-results','m4-results'].forEach(function(id) {
+        document.getElementById(id).style.display = 'none';
+      });
+
+      document.getElementById('warn-flag').classList.remove('visible');
+      document.getElementById('owbpa-flag').classList.remove('visible');
+      var rc = document.getElementById('runway-card');
+      rc.classList.remove('green','amber','red');
+    }
+  </script>
+
 </body>
 </html>
