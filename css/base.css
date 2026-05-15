@@ -1,0 +1,350 @@
+/* ============================================================
+   base.css — LayoffCalc design system
+   Fonts, variables, reset, layout, nav, hero, shared inputs
+   ============================================================ */
+
+/* ---------- Google Fonts ---------- */
+/* loaded via <link> in index.html with preconnect */
+
+/* ---------- Design tokens ---------- */
+:root {
+  --primary:      #1E3A8A;
+  --accent:       #3B82F6;
+  --bg:           #F8FAFC;
+  --success:      #10B981;
+  --warning:      #F59E0B;
+  --alert:        #EF4444;
+  --text:         #0F172A;
+  --text-sec:     #64748B;
+  --border:       #E2E8F0;
+  --white:        #FFFFFF;
+
+  --card-radius:  12px;
+  --input-radius: 8px;
+  --btn-radius:   6px;
+
+  --shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:    0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+  --shadow-lg:    0 10px 15px rgba(0,0,0,.08), 0 4px 6px rgba(0,0,0,.05);
+
+  --transition:   0.3s ease;
+  --max-width:    819px;
+  --pad:          24px;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+ul, ol { list-style: none; }
+
+/* ---------- Layout ---------- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+/* ---------- Navigation ---------- */
+.site-nav {
+  background: var(--primary);
+  padding: 0 var(--pad);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.nav-logo {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.nav-logo span {
+  color: #93C5FD; /* blue-300 */
+}
+
+.nav-tagline {
+  font-size: 0.75rem;
+  color: #CBD5E1;
+  font-weight: 400;
+  display: none;
+}
+
+@media (min-width: 480px) {
+  .nav-tagline { display: block; }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #1D4ED8 100%);
+  color: var(--white);
+  padding: 40px var(--pad) 36px;
+  text-align: center;
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.hero-sub {
+  font-size: 1.0625rem;
+  color: #BFDBFE;
+  max-width: 560px;
+  margin: 0 auto 20px;
+  line-height: 1.5;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 0.8125rem;
+  color: #E0F2FE;
+  font-weight: 500;
+}
+
+/* ---------- Shared typography ---------- */
+.section-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.section-desc {
+  font-size: 0.9375rem;
+  color: var(--text-sec);
+  margin-bottom: 24px;
+}
+
+/* ---------- Shared form elements ---------- */
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  font-size: 16px;          /* 16px prevents iOS zoom */
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--input-radius);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ---------- Range slider ---------- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--accent), var(--shadow-sm);
+  cursor: pointer;
+  transition: transform var(--transition);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--accent), var(--shadow-sm);
+  cursor: pointer;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+/* ---------- Shared buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--white);
+}
+.btn-primary:hover {
+  background: #2563EB;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+.btn-outline:hover {
+  background: #EFF6FF;
+  text-decoration: none;
+}
+
+.btn-copy {
+  background: var(--primary);
+  color: var(--white);
+  width: 100%;
+  font-size: 1rem;
+}
+.btn-copy:hover {
+  background: #1e40af;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--primary);
+  color: #CBD5E1;
+  padding: 32px var(--pad);
+  margin-top: 48px;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #93C5FD;
+  font-size: 0.8125rem;
+}
+
+.footer-copyright {
+  color: #94A3B8;
+  font-size: 0.75rem;
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 480px) {
+  :root { --pad: 16px; }
+  .hero { padding: 28px var(--pad) 24px; }
+  .btn { height: 52px; }  /* bigger tap target on mobile */
+}
