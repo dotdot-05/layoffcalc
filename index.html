@@ -205,10 +205,12 @@
   ══════════════════════════════════════════ -->
   <nav style="background:#1E3A8A; position:sticky; top:0; z-index:100; width:100%; box-sizing:border-box; box-shadow:0 2px 8px rgba(0,0,0,.18);">
     <div style="max-width:819px; margin:0 auto; padding:0 24px; height:56px; display:flex; align-items:center; justify-content:space-between;">
-      <div style="line-height:1.1;">
-        <div style="font-size:18px; font-weight:700; color:#FFFFFF; font-family:inherit; letter-spacing:-0.01em;">LayoffCalc</div>
-        <div style="font-size:11px; color:#93C5FD; font-weight:400;">Free layoff financial calculator</div>
-      </div>
+      <a href="/" style="text-decoration:none; line-height:1.1; display:block;">
+        <div style="font-size:18px; font-weight:700; font-family:inherit; letter-spacing:-0.02em;">
+          <span style="color:#FFFFFF;">Layoff</span><span style="color:#60A5FA;">Calc</span>
+        </div>
+        <div style="font-size:11px; color:#93C5FD; font-weight:400; margin-top:1px;">Free layoff financial calculator</div>
+      </a>
       <div style="display:flex; align-items:center; gap:24px;">
         <a href="#module1" style="color:#CBD5E1; font-size:13px; font-weight:500; text-decoration:none; white-space:nowrap;">Severance</a>
         <a href="#module3" style="color:#CBD5E1; font-size:13px; font-weight:500; text-decoration:none; white-space:nowrap;">COBRA</a>
@@ -239,10 +241,10 @@
   <div style="max-width:819px; margin:0 auto; padding:20px 24px 0;">
     <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; color:#64748B; text-transform:uppercase; margin-bottom:10px;">Your Situation</div>
     <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:4px;">
-      <div style="height:4px; border-radius:2px; background:#10B981;"></div>
-      <div style="height:4px; border-radius:2px; background:#3B82F6;"></div>
-      <div style="height:4px; border-radius:2px; background:#3B82F6; opacity:0.4;"></div>
-      <div style="height:4px; border-radius:2px; background:#E2E8F0;"></div>
+      <div id="pb-1" style="height:4px; border-radius:2px; background:#E2E8F0; transition:background .4s ease;"></div>
+      <div id="pb-2" style="height:4px; border-radius:2px; background:#E2E8F0; transition:background .4s ease;"></div>
+      <div id="pb-3" style="height:4px; border-radius:2px; background:#E2E8F0; transition:background .4s ease;"></div>
+      <div id="pb-4" style="height:4px; border-radius:2px; background:#E2E8F0; transition:background .4s ease;"></div>
     </div>
   </div>
 
@@ -722,7 +724,37 @@
       document.getElementById('owbpa-flag').classList.remove('visible');
       var rc = document.getElementById('runway-card');
       rc.classList.remove('green','amber','red');
+
+      ['pb-1','pb-2','pb-3','pb-4'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.style.background = '#E2E8F0';
+      });
     }
+
+    function initProgressBar() {
+      var pairs = [
+        ['m1-results', 'pb-1'],
+        ['m2-results', 'pb-2'],
+        ['m3-results', 'pb-3'],
+        ['m4-results', 'pb-4']
+      ];
+
+      function setSegment(segId, active) {
+        var seg = document.getElementById(segId);
+        if (seg) seg.style.background = active ? '#10B981' : '#E2E8F0';
+      }
+
+      pairs.forEach(function(pair) {
+        var resultEl = document.getElementById(pair[0]);
+        var segId    = pair[1];
+        if (!resultEl) return;
+        new MutationObserver(function() {
+          setSegment(segId, resultEl.style.display !== 'none');
+        }).observe(resultEl, { attributes: true, attributeFilter: ['style'] });
+      });
+    }
+
+    initProgressBar();
   </script>
 
 </body>
