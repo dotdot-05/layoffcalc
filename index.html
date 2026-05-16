@@ -231,7 +231,7 @@
         Enter your details below. Your severance estimate, financial runway,
         COBRA costs, and unemployment benefits update instantly — no account, no email, no wait.
       </p>
-      <span class="hero-badge">&#x2713; Free &nbsp;&nbsp; &#x2713; No login &nbsp;&nbsp; &#x2713; Results in 60 seconds</span>
+      <span class="hero-badge">&#x2713; Free &nbsp;&nbsp; &#x2713; No login &nbsp;&nbsp; &#x2713; Results in 60 seconds &nbsp;&nbsp; &#x1F1FA;&#x1F1F8; U.S. only</span>
     </div>
   </header>
 
@@ -725,32 +725,48 @@
       var rc = document.getElementById('runway-card');
       rc.classList.remove('green','amber','red');
 
-      ['pb-1','pb-2','pb-3','pb-4'].forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) el.style.background = '#E2E8F0';
-      });
+      resetProgressBar();
+    }
+
+    /* ── Progress bar ── */
+    var _pbInteracted = { m2: false, m3: false };
+
+    function setSeg(id, color) {
+      var el = document.getElementById(id);
+      if (el) el.style.background = color;
+    }
+
+    function resetProgressBar() {
+      _pbInteracted.m2 = false;
+      _pbInteracted.m3 = false;
+      ['pb-1','pb-2','pb-3','pb-4'].forEach(function(id) { setSeg(id, '#E2E8F0'); });
     }
 
     function initProgressBar() {
-      var pairs = [
-        ['m1-results', 'pb-1'],
-        ['m2-results', 'pb-2'],
-        ['m3-results', 'pb-3'],
-        ['m4-results', 'pb-4']
-      ];
+      /* Seg 1 (Severance) + Seg 4 (Unemployment): auto-populate from Module 1 defaults */
+      document.addEventListener('module1Updated', function() {
+        setSeg('pb-1', '#10B981'); /* green — user's info is in */
+        setSeg('pb-4', '#3B82F6'); /* blue  — auto-calculated, no extra user effort */
+      });
 
-      function setSegment(segId, active) {
-        var seg = document.getElementById(segId);
-        if (seg) seg.style.background = active ? '#10B981' : '#E2E8F0';
-      }
+      /* Seg 2 (Runway): user touches savings or expenses */
+      ['savings-input','expenses-slider','expenses-text'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', function() {
+          if (!_pbInteracted.m2) { _pbInteracted.m2 = true; setSeg('pb-2', '#10B981'); }
+        });
+      });
 
-      pairs.forEach(function(pair) {
-        var resultEl = document.getElementById(pair[0]);
-        var segId    = pair[1];
-        if (!resultEl) return;
-        new MutationObserver(function() {
-          setSegment(segId, resultEl.style.display !== 'none');
-        }).observe(resultEl, { attributes: true, attributeFilter: ['style'] });
+      /* Seg 3 (COBRA): user touches coverage or deduction */
+      ['coverage-select','deduction-input'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        ['input','change'].forEach(function(evt) {
+          el.addEventListener(evt, function() {
+            if (!_pbInteracted.m3) { _pbInteracted.m3 = true; setSeg('pb-3', '#10B981'); }
+          });
+        });
       });
     }
 
